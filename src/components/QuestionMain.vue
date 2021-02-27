@@ -8,7 +8,12 @@
       </p>
     </div>
     <hr />
-    <question-child :question="questions[currentQuestion]" />
+    <question-child
+      v-if="currentQuestion != totalQuestions"
+      :question="questions[currentQuestion - 1]"
+      @answer-option-button-clicked="handleAnswerOptionButtonClicked"
+    />
+    <result-child v-else />
     <hr />
   </div>
 </template>
@@ -16,16 +21,18 @@
 <script>
 import { getAllQuestions } from "../utils/fetchAndProcessQuestions";
 import QuestionChild from "./QuestionChild";
+import ResultChild from "./ResultChild.vue";
 
 export default {
   components: {
     QuestionChild,
+    ResultChild,
   },
   data() {
     return {
       questions: [],
-      score: 50,
-      currentQuestion: 0,
+      score: 0,
+      currentQuestion: 1,
       totalQuestions: 10,
     };
   },
@@ -47,13 +54,12 @@ export default {
           mainQuestion: element.question,
           correctAnswer: element.correct_answer,
           options: this.shuffle(optionsArray),
-          picked: "",
+          selectedOption: "",
         };
         this.questions.push(question);
       });
-      console.log(this.questions);
     },
-    //Shuffle method copied from "https://bost.ocks.org/mike/shuffle/"
+    //Shuffle method adapted from "https://bost.ocks.org/mike/shuffle/"
     shuffle(array) {
       var copy = [];
       let n = array.length;
@@ -69,6 +75,18 @@ export default {
       }
 
       return copy;
+    },
+    // 'selectedOption' refers to the 2nd parameter of the '$emit' method @click in QuestionChild (built-in functionality)
+    handleAnswerOptionButtonClicked(selectedOption) {
+      const indexOfCurrentQuestion = this.currentQuestion - 1;
+      const correctAnswer = this.questions[indexOfCurrentQuestion].correctAnswer;
+      if (selectedOption == correctAnswer) {
+        this.score += 10;
+      }
+      // Recording the selected option
+      this.questions[indexOfCurrentQuestion].selectedOption = selectedOption;
+      // Moving to the next question
+      this.currentQuestion++;
     },
   },
 };

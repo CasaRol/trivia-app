@@ -7,6 +7,7 @@
         v-for="option in question.options"
         :key="option"
         v-html="option"
+        @click="$emit('answer-option-button-clicked', option)"
       ></button>
     </div>
   </div>
