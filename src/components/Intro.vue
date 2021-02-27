@@ -4,7 +4,7 @@
       <h3>Description:</h3>
       <p id="random">{{ description }}</p>
     </div>
-    <div id="button-placement">
+    <div id="button-placement" @click="handelStartClicked">
       <button>Start Game</button>
     </div>
   </div>
@@ -18,6 +18,12 @@ export default {
         "This is a game for anyone who'd like to feel stupid when not knowing the answer to a simple question :D",
     };
   },
+  props: [showIntro, showQuestionMain],
+  methods: {
+    handelStartClicked() {
+      
+    }
+  }
 };
 </script>
 
