@@ -32,7 +32,8 @@ export default {
 </script>
 
 <style>
-#app {
+html {
+  background-color: lightgray;
 }
 
 #pageTitle {

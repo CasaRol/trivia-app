@@ -1,12 +1,15 @@
 <template>
   <div>
+    <hr />
     <div id="header" class="grid-container">
       <p class="grid-item">Score: {{ score }}</p>
       <p class="grid-item">
         Question: {{ currentQuestion }}/{{ totalQuestions }}
       </p>
     </div>
+    <hr />
     <question-child :question="questions[currentQuestion]" />
+    <hr />
   </div>
 </template>
 
@@ -23,7 +26,7 @@ export default {
       questions: [],
       score: 50,
       currentQuestion: 0,
-      totalQuestions: 100,
+      totalQuestions: 10,
     };
   },
   created() {
@@ -72,14 +75,14 @@ export default {
 </script>
 
 <style>
-#header {
-  background-color: gray;
+#header p {
+  font-size: 1.75rem;
+  padding: 0.5rem;
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: auto auto;
-  padding: 1rem;
 }
 
 .grid-item {
