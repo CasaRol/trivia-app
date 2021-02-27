@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {getAllQuestions} from "../utils/fetchAndProcessQuestions"
+import { getAllQuestions } from "../utils/fetchAndProcessQuestions";
 
 export default {
   data() {
@@ -26,9 +26,24 @@ export default {
   },
   methods: {
     async loadAndProcessQestions() {
-      console.log(await getAllQuestions());
+      let tmpArray = await getAllQuestions();
 
-      
+      tmpArray.forEach((element) => {
+        let options = [];
+        options.push(element.correct_answer);
+        element.incorrect_answers.forEach((answer) => {
+          options.push(answer);
+        });
+
+        let question = {
+          mainQuestion: element.question,
+          correctAnswer: element.correct_answer,
+          options: options,
+          picked: "",
+        };
+        this.questions.push(question);
+      });
+      console.log(this.questions);
     },
   },
 };
