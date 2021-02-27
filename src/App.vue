@@ -7,17 +7,15 @@
 </template>
 
 <script>
-import Intro from "./components/Intro.vue";
-import QuestionMain from './components/QuestionMain.vue';
-
+import QuestionMain from "./components/QuestionMain.vue";
 
 export default {
   name: "App",
   data() {
     return {
       showIntro: true,
-      showQuestionMain: false
-    }
+      showQuestionMain: false,
+    };
   },
   methods: {
     handleStartClicked() {
@@ -26,7 +24,6 @@ export default {
     }
   },
   components: {
-    Intro,
     QuestionMain,
   },
 };

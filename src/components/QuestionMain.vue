@@ -1,26 +1,28 @@
 <template>
-  <div id="header">
-    <div class="grid-container">
+  <div>
+    <div id="header" class="grid-container">
       <p class="grid-item">Score: {{ score }}</p>
       <p class="grid-item">
         Question: {{ currentQuestion }}/{{ totalQuestions }}
       </p>
-      <h3 v-html="questions[0].correctAnswer"></h3>
-      <br />
-      <h3 v-html="questions[0].options"></h3>
     </div>
+    <question-child :question="questions[currentQuestion]" />
   </div>
 </template>
 
 <script>
 import { getAllQuestions } from "../utils/fetchAndProcessQuestions";
+import QuestionChild from "./QuestionChild";
 
 export default {
+  components: {
+    QuestionChild,
+  },
   data() {
     return {
       questions: [],
       score: 50,
-      currentQuestion: 5,
+      currentQuestion: 0,
       totalQuestions: 100,
     };
   },
