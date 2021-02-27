@@ -1,21 +1,23 @@
 <template>
   <div id="app">
-    <index/>
+    <h1 id="pageTitle">Trivia Game!</h1>
+    <intro />
   </div>
 </template>
 
 <script>
-import index from './components/index.vue'
+import Intro from "./components/Intro.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    index
-  }
-}
+    Intro,
+  },
+};
 </script>
 
-<style>
+<s
+    QuestionMaintyle>
 #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,5 +25,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px; */
+}
+
+#pageTitle {
+  text-align: center;
 }
 </style>
