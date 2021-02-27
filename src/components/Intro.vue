@@ -4,7 +4,7 @@
       <h3>Description:</h3>
       <p id="random">{{ description }}</p>
     </div>
-    <div id="button-placement" @click="handelStartClicked">
+    <div id="button-placement" @click="onStartClicked">
       <button>Start Game</button>
     </div>
   </div>
@@ -18,10 +18,9 @@ export default {
         "This is a game for anyone who'd like to feel stupid when not knowing the answer to a simple question :D",
     };
   },
-  props: [showIntro, showQuestionMain],
   methods: {
-    handelStartClicked() {
-      
+    onStartClicked() {
+      this.$emit("start-clicked");
     }
   }
 };

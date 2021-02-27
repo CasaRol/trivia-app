@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <h1 id="pageTitle">Trivia Game!</h1>
-    <question-main />
+    <intro v-if="showIntro" @start-clicked="handleStartClicked"/>
+    <question-main v-if="showQuestionMain"/>
   </div>
 </template>
 
@@ -15,6 +16,12 @@ export default {
       showIntro: true,
       showQuestionMain: false,
     };
+  },
+  methods: {
+    handleStartClicked() {
+      this.showIntro = false;
+      this.showQuestionMain = true;
+    }
   },
   components: {
     QuestionMain,
