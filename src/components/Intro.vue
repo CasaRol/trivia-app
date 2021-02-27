@@ -21,8 +21,8 @@ export default {
   methods: {
     onStartClicked() {
       this.$emit("start-clicked");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -46,15 +46,13 @@ export default {
 }
 
 #button-placement button {
-  background-color:chartreuse;
+  background-color: chartreuse;
   font-size: 20px;
   padding: 2rem;
   border-radius: 2rem;
 }
 
 #button-placement button:focus {
-    outline: 0;
+  outline: 0;
 }
-
-
 </style>

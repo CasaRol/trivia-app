@@ -1,7 +1,11 @@
 <template>
   <div>
-    <h1>{{ question.mainQuestion }}</h1>
-    <button v-for="option in question.options" :key="option">{{ option }}</button>
+    <h1 v-html="question.mainQuestion"></h1>
+    <button
+      v-for="option in question.options"
+      :key="option"
+      v-html="option"
+    ></button>
   </div>
 </template>
 
