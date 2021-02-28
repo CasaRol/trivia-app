@@ -9,11 +9,11 @@
     </div>
     <hr />
     <question-child
-      v-if="currentQuestion != totalQuestions"
+      v-if="currentQuestion <= totalQuestions"
       :question="questions[currentQuestion - 1]"
       @answer-option-button-clicked="handleAnswerOptionButtonClicked"
     />
-    <result-child v-else />
+    <result-child :questions="questions" v-else />
     <hr />
   </div>
 </template>
@@ -21,7 +21,7 @@
 <script>
 import { getAllQuestions } from "../utils/fetchAndProcessQuestions";
 import QuestionChild from "./QuestionChild";
-import ResultChild from "./ResultChild.vue";
+import ResultChild from "./Results";
 
 export default {
   components: {
@@ -79,7 +79,8 @@ export default {
     // 'selectedOption' refers to the 2nd parameter of the '$emit' method @click in QuestionChild (built-in functionality)
     handleAnswerOptionButtonClicked(selectedOption) {
       const indexOfCurrentQuestion = this.currentQuestion - 1;
-      const correctAnswer = this.questions[indexOfCurrentQuestion].correctAnswer;
+      const correctAnswer = this.questions[indexOfCurrentQuestion]
+        .correctAnswer;
       if (selectedOption == correctAnswer) {
         this.score += 10;
       }
