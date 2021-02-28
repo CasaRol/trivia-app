@@ -9,11 +9,11 @@
     </div>
     <hr />
     <question-child
-      v-if="currentQuestion != totalQuestions"
+      v-if="currentQuestion <= totalQuestions"
       :question="questions[currentQuestion - 1]"
       @answer-option-button-clicked="handleAnswerOptionButtonClicked"
     />
-    <result-child v-else />
+    <results :questions="questions" v-else />
     <hr />
   </div>
 </template>
@@ -21,12 +21,12 @@
 <script>
 import { getAllQuestions, processFetchedQuestions } from "../utils/fetchAndProcessQuestions";
 import QuestionChild from "./QuestionChild";
-import ResultChild from "./ResultChild.vue";
+import Results from "./Results";
 
 export default {
   components: {
     QuestionChild,
-    ResultChild,
+    Results,
   },
   data() {
     return {
