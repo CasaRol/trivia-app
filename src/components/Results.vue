@@ -4,7 +4,7 @@
       id="result"
       class="result-grid-container"
       v-for="question in questions"
-      :key="question"
+      :key="question.mainQuestion"
     >
       <p class="result-grid-item-left">Question:</p>
       <h2 class="result-grid-item-right" v-html="question.mainQuestion"></h2>
@@ -30,18 +30,6 @@
 <script>
 export default {
   props: ["questions"],
-  components: {},
-  data() {
-    return {};
-  },
-  created() {
-    this.testingArray();
-  },
-  methods: {
-    testingArray() {
-      console.log(this.questions);
-    },
-  },
 };
 </script>
 

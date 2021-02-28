@@ -13,7 +13,7 @@
       :question="questions[currentQuestion - 1]"
       @answer-option-button-clicked="handleAnswerOptionButtonClicked"
     />
-    <result-child :questions="questions" v-else />
+    <results :questions="questions" v-else />
     <hr />
   </div>
 </template>
@@ -21,12 +21,12 @@
 <script>
 import { getAllQuestions } from "../utils/fetchAndProcessQuestions";
 import QuestionChild from "./QuestionChild";
-import ResultChild from "./Results";
+import Results from "./Results";
 
 export default {
   components: {
     QuestionChild,
-    ResultChild,
+    Results,
   },
   data() {
     return {
