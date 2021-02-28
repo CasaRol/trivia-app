@@ -2,13 +2,13 @@
   <div id="app">
     <h1 id="pageTitle">Trivia Game!</h1>
     <intro v-if="showIntro" @start-clicked="handleStartClicked" />
-    <question-main v-if="!showIntro" />
+    <game-score-board v-if="!showIntro" />
   </div>
 </template>
 
 <script>
-import QuestionMain from "./components/QuestionMain.vue";
-import Intro from "./components/Intro.vue";
+import GameScoreBoard from "./components/GameScoreBoard";
+import Intro from "./components/Intro";
 
 export default {
   name: "App",
@@ -24,7 +24,7 @@ export default {
   },
   components: {
     Intro,
-    QuestionMain,
+    GameScoreBoard,
   },
 };
 </script>

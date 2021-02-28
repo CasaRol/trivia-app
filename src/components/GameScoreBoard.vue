@@ -8,7 +8,7 @@
       </p>
     </div>
     <hr />
-    <question-child
+    <game-screen
       v-if="currentQuestion <= totalQuestions"
       :question="questions[currentQuestion - 1]"
       @answer-option-button-clicked="handleAnswerOptionButtonClicked"
@@ -19,13 +19,16 @@
 </template>
 
 <script>
-import { getAllQuestions, processFetchedQuestions } from "../utils/fetchAndProcessQuestions";
-import QuestionChild from "./QuestionChild";
+import {
+  getAllQuestions,
+  processFetchedQuestions,
+} from "../utils/fetchAndProcessQuestions";
+import GameScreen from "./GameScreen";
 import Results from "./Results";
 
 export default {
   components: {
-    QuestionChild,
+    GameScreen,
     Results,
   },
   data() {
@@ -45,7 +48,7 @@ export default {
       this.questions = processFetchedQuestions(fetchedQuestions);
     },
 
-// 'selectedOption' refers to the 2nd parameter of the '$emit' method @click in QuestionChild (built-in functionality)
+    // 'selectedOption' refers to the 2nd parameter of the '$emit' method @click in QuestionChild (built-in functionality)
     handleAnswerOptionButtonClicked(selectedOption) {
       const indexOfCurrentQuestion = this.currentQuestion - 1;
       const correctAnswer = this.questions[indexOfCurrentQuestion]
