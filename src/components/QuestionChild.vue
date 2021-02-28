@@ -1,13 +1,13 @@
 <template>
   <div id="question-area">
-    <h1 v-html="question.mainQuestion"></h1>
+    <h1 v-html="question.questionString"></h1>
     <div class="grid-container">
       <button
         class="grid-item"
         v-for="option in question.options"
         :key="option"
         v-html="option"
-        @click="$emit('answer-option-button-clicked', option)"
+        @click="onAnswerOptionButtonClicked(option)"
       ></button>
     </div>
   </div>
@@ -16,6 +16,11 @@
 <script>
 export default {
   props: ["question"],
+  methods: {
+    onAnswerOptionButtonClicked(selectedOption) {
+      this.$emit("answer-option-button-clicked", selectedOption);
+    },
+  },
 };
 </script>
 

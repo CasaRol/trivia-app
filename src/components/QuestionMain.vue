@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getAllQuestions } from "../utils/fetchAndProcessQuestions";
+import { getAllQuestions, processFetchedQuestions } from "../utils/fetchAndProcessQuestions";
 import QuestionChild from "./QuestionChild";
 import ResultChild from "./ResultChild.vue";
 
@@ -37,49 +37,19 @@ export default {
     };
   },
   created() {
-    this.loadAndProcessQestions();
+    this.loadQuestions();
   },
   methods: {
-    async loadAndProcessQestions() {
-      let tmpArray = await getAllQuestions();
-
-      tmpArray.forEach((element) => {
-        let optionsArray = [];
-        optionsArray.push(element.correct_answer);
-        element.incorrect_answers.forEach((answer) => {
-          optionsArray.push(answer);
-        });
-
-        let question = {
-          mainQuestion: element.question,
-          correctAnswer: element.correct_answer,
-          options: this.shuffle(optionsArray),
-          selectedOption: "",
-        };
-        this.questions.push(question);
-      });
+    async loadQuestions() {
+      const fetchedQuestions = await getAllQuestions();
+      this.questions = processFetchedQuestions(fetchedQuestions);
     },
-    //Shuffle method adapted from "https://bost.ocks.org/mike/shuffle/"
-    shuffle(array) {
-      var copy = [];
-      let n = array.length;
-      let i;
 
-      // While there remain elements to shuffle…
-      while (n) {
-        // Pick a remaining element…
-        i = Math.floor(Math.random() * n--);
-
-        // And move it to the new array.
-        copy.push(array.splice(i, 1)[0]);
-      }
-
-      return copy;
-    },
-    // 'selectedOption' refers to the 2nd parameter of the '$emit' method @click in QuestionChild (built-in functionality)
+// 'selectedOption' refers to the 2nd parameter of the '$emit' method @click in QuestionChild (built-in functionality)
     handleAnswerOptionButtonClicked(selectedOption) {
       const indexOfCurrentQuestion = this.currentQuestion - 1;
-      const correctAnswer = this.questions[indexOfCurrentQuestion].correctAnswer;
+      const correctAnswer = this.questions[indexOfCurrentQuestion]
+        .correctAnswer;
       if (selectedOption == correctAnswer) {
         this.score += 10;
       }

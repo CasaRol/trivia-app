@@ -4,8 +4,8 @@
       <h3>Description:</h3>
       <p id="random">{{ description }}</p>
     </div>
-    <div id="button-placement" @click="onStartClicked">
-      <button>Start Game</button>
+    <div id="button-placement">
+      <button @click="onStartClicked">Start Game</button>
     </div>
   </div>
 </template>
@@ -50,6 +50,10 @@ export default {
   font-size: 20px;
   padding: 2rem;
   border-radius: 2rem;
+}
+
+#button-placement button:hover {
+  background-color: rgb(242, 165, 0);
 }
 
 #button-placement button:focus {
