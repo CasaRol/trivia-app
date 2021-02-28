@@ -2,7 +2,14 @@
   <div>
     <div id="intro">
       <h3>Description:</h3>
-      <p id="random">{{ description }}</p>
+      <p>{{ description }}</p>
+      <hr />
+      <dl>
+        <dt>Category</dt>
+        <dd>Science: Computers</dd>
+        <dt>Number of questions</dt>
+        <dd>10</dd>
+      </dl>
     </div>
     <div id="button-placement">
       <button @click="onStartClicked">Start Game</button>
@@ -38,6 +45,25 @@ export default {
 
 #intro p {
   margin-top: 0px;
+}
+
+dt {
+  display: block;
+  float: left;
+  width: 50%;
+  text-align: right;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0.5em 0.5em;
+}
+
+dt:after {
+  content: ":";
+}
+
+dd {
+  display: block;
+  padding: 0.5em 0.5em;
 }
 
 #button-placement {

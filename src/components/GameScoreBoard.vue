@@ -1,11 +1,14 @@
 <template>
   <div>
     <hr />
-    <div id="header" class="grid-container">
+    <div v-if="currentQuestion <= totalQuestions" id="header" class="grid-container">
       <p class="grid-item">Score: {{ score }}</p>
       <p class="grid-item">
         Question: {{ currentQuestion }}/{{ totalQuestions }}
       </p>
+    </div>
+    <div v-else id="header">
+      <p class="grid-item">Final score: {{ score }}/{{ totalQuestions * pointsForCorrectAnswer }}</p>
     </div>
     <hr />
     <game-screen
@@ -37,6 +40,7 @@ export default {
       score: 0,
       currentQuestion: 1,
       totalQuestions: 10,
+      pointsForCorrectAnswer: 10
     };
   },
   created() {
@@ -54,7 +58,7 @@ export default {
       const correctAnswer = this.questions[indexOfCurrentQuestion]
         .correctAnswer;
       if (selectedOption == correctAnswer) {
-        this.score += 10;
+        this.score += this.pointsForCorrectAnswer;
       }
       // Recording the selected option
       this.questions[indexOfCurrentQuestion].selectedOption = selectedOption;
