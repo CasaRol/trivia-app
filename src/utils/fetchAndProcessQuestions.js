@@ -19,7 +19,7 @@ function processFetchedQuestions(fetchedQuestions) {
 		})
 
 		const processedQuestion = {
-			questionString: fetchedQuestion.question,
+			mainQuestion: fetchedQuestion.question,
 			options: shuffle(optionsArray),
 			correctAnswer: fetchedQuestion.correct_answer,
 			selectedOption: "",

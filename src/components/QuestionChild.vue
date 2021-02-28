@@ -1,6 +1,6 @@
 <template>
   <div id="question-area">
-    <h1 v-html="question.questionString"></h1>
+    <h1 v-html="question.mainQuestion"></h1>
     <div class="grid-container">
       <button
         class="grid-item"
