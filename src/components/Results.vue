@@ -24,12 +24,20 @@
       </h3>
       <h3 v-else style="color: red">INCORRECT!</h3>
     </div>
+    <div id="restart-button">
+      <button @click="playAgain">Play again!</button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   props: ["questions"],
+  methods: {
+    playAgain() {
+      window.location.reload();
+    },
+  },
 };
 </script>
 
@@ -57,5 +65,24 @@ export default {
   width: 95%;
   text-align: left;
   font: none;
+}
+
+#restart-button {
+  text-align: center;
+}
+
+#restart-button button {
+  background-color: chartreuse;
+  font-size: 20px;
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
+#restart-button button:hover {
+  background-color: rgb(242, 165, 0);
+}
+
+#restart-button button:focus {
+  outline: 0;
 }
 </style>
