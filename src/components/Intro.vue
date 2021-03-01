@@ -3,13 +3,30 @@
     <div id="intro">
       <h3>Description:</h3>
       <p>{{ description }}</p>
-      <hr />
-      <dl>
-        <dt>Category</dt>
-        <dd>Science: Computers</dd>
-        <dt>Number of questions</dt>
-        <dd>10</dd>
-      </dl>
+      <hr id="option-section" />
+      <div class="form">
+        <form>
+          <label>Select Category: </label>
+          <select class="form-control">
+            <option
+              v-for="category in Object.keys(categories)"
+              :key="category"
+              :value="categories[category]"
+              v-html="category"
+            ></option>
+          </select>
+          <br />
+          <label>Number of Questions:</label
+          ><input
+            class="form-control"
+            id="amount"
+            type="number"
+            min="1"
+            max="50"
+            value="10"
+          />
+        </form>
+      </div>
     </div>
     <div id="button-placement">
       <button @click="onStartClicked">Start Game</button>
@@ -23,6 +40,33 @@ export default {
     return {
       description:
         "This is a game for anyone who'd like to feel stupid when not knowing the answer to a simple question :D",
+      categories: {
+        "Any Category": 0,
+        "General Knowledge": 9,
+        "Entertainment: Books": 10,
+        "Entertainment: Film": 11,
+        "Entertainment: Music": 12,
+        "Entertainment: Musicals &amp; Theatres": 13,
+        "Entertainment: Television": 14,
+        "Entertainment: Video Games": 15,
+        "Entertainment: Board Games": 16,
+        "Science &amp; Nature": 17,
+        "Science: Computers": 18,
+        "Science: Mathematics": 19,
+        "Mythology": 20,
+        "Sports": 21,
+        "Geography": 22,
+        "History": 23,
+        "Politics": 24,
+        "Art": 25,
+        "Celebrities": 26,
+        "Animals": 27,
+        "Vehicles": 28,
+        "Entertainment: Comics": 29,
+        "Science: Gadgets": 30,
+        "Entertainment: Japanese Anime &amp; Manga": 31,
+        "Entertainment: Cartoon &amp; Animations": 32,
+      },
     };
   },
   methods: {
@@ -47,23 +91,39 @@ export default {
   margin-top: 0px;
 }
 
-dt {
+#option-section {
+  margin-bottom: 2em;
+}
+
+.form {
   display: block;
-  float: left;
-  width: 50%;
-  text-align: right;
+  width: 60%;
+  max-width: 500px;
+  margin: auto;
+}
+
+form {
+  display: inline-block;
+  width: 100%;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 45px;
+  padding: 0px 15px;
+  font-size: 15px;
+  color: #464545;
+  background-color: white;
+  background-image: none;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
   font-weight: bold;
-  font-style: italic;
-  padding: 0.5em 0.5em;
-}
-
-dt:after {
-  content: ":";
-}
-
-dd {
-  display: block;
-  padding: 0.5em 0.5em;
 }
 
 #button-placement {
