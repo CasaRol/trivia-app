@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <h1 id="pageTitle">Trivia Game!</h1>
-    <intro v-if="showIntro" @start-clicked="handleStartClicked" />
-    <game-score-board v-if="!showIntro" />
+    <intro v-if="showIntro" @start-clicked="handleStartClicked"/>
+    <game-score-board v-if="!showIntro"/>
   </div>
 </template>
 

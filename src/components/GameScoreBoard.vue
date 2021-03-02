@@ -1,18 +1,24 @@
 <template>
   <div>
     <hr />
-    <div v-if="currentQuestion <= totalQuestions" id="header" class="grid-container">
+    <div
+      v-if="currentQuestion <= numberOfQuestions"
+      id="header"
+      class="grid-container"
+    >
       <p class="grid-item">Score: {{ score }}</p>
       <p class="grid-item">
-        Question: {{ currentQuestion }}/{{ totalQuestions }}
+        Question: {{ currentQuestion }}/{{ numberOfQuestions }}
       </p>
     </div>
     <div v-else id="header">
-      <p class="grid-item">Final score: {{ score }}/{{ totalQuestions * pointsForCorrectAnswer }}</p>
+      <p class="grid-item">
+        Final score: {{ score }}/{{ numberOfQuestions * pointsForCorrectAnswer }}
+      </p>
     </div>
     <hr />
     <game-screen
-      v-if="currentQuestion <= totalQuestions"
+      v-if="currentQuestion <= numberOfQuestions"
       :question="questions[currentQuestion - 1]"
       @answer-option-button-clicked="handleAnswerOptionButtonClicked"
     />
@@ -22,12 +28,9 @@
 </template>
 
 <script>
-import {
-  getAllQuestions,
-  processFetchedQuestions,
-} from "../utils/fetchAndProcessQuestions";
 import GameScreen from "./GameScreen";
 import Results from "./Results";
+import { mapState } from "vuex"
 
 export default {
   components: {
@@ -36,22 +39,15 @@ export default {
   },
   data() {
     return {
-      questions: [],
       score: 0,
       currentQuestion: 1,
-      totalQuestions: 10,
-      pointsForCorrectAnswer: 10
+      pointsForCorrectAnswer: 10,
     };
   },
-  created() {
-    this.loadQuestions();
+  computed: {
+    ...mapState(["questions", "numberOfQuestions"])
   },
   methods: {
-    async loadQuestions() {
-      const fetchedQuestions = await getAllQuestions();
-      this.questions = processFetchedQuestions(fetchedQuestions);
-    },
-
     // 'selectedOption' refers to the 2nd parameter of the '$emit' method @click in QuestionChild (built-in functionality)
     handleAnswerOptionButtonClicked(selectedOption) {
       const indexOfCurrentQuestion = this.currentQuestion - 1;

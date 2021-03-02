@@ -1,11 +1,26 @@
 export { getAllQuestions, processFetchedQuestions }
 
-const QUESTION_URL = "https://opentdb.com/api.php?amount=10&category=18"
+let QUESTION_URL = "https://opentdb.com/api.php?"
 
-const getAllQuestions = () => {
-	return fetch(QUESTION_URL)
+const getAllQuestions = (numberOfQuestions, category) => {
+	const URL = buildUrl(numberOfQuestions, category)
+	return fetch(URL)
 		.then((response) => response.json())
 		.then((response) => response.results)
+}
+
+function buildUrl(numberOfQuestions, category) {
+	let URL = QUESTION_URL
+	const requestParamForCategory = `&category=${category}`
+	const requestParamForNumberOfQuestions = `amount=${numberOfQuestions}`
+
+	URL = URL.concat(requestParamForNumberOfQuestions)
+
+	if (category != 0) {
+		URL = URL.concat(requestParamForCategory)
+	}
+
+	return URL
 }
 
 function processFetchedQuestions(fetchedQuestions) {
