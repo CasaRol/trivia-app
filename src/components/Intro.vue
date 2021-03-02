@@ -7,19 +7,19 @@
       <div class="form">
         <form>
           <label>Select Category: </label>
-          <select class="form-control">
+          <select id="selectedCategory" class="form-control">
             <option
-              v-for="category in Object.keys(categories)"
-              :key="category"
-              :value="categories[category]"
-              v-html="category"
+              v-for="(category, index) in categories"
+              :key="index"
+              :value="category.codeForUrlParam"
+              v-html="category.categoryName"
             ></option>
           </select>
           <br />
           <label>Number of Questions:</label
           ><input
+            id="numberOfQuestions"
             class="form-control"
-            id="amount"
             type="number"
             min="1"
             max="50"
@@ -35,43 +35,63 @@
 </template>
 
 <script>
+import { mapMutations, mapActions } from "vuex";
 export default {
   data() {
     return {
       description:
         "This is a game for anyone who'd like to feel stupid when not knowing the answer to a simple question :D",
-      categories: {
-        "Any Category": 0,
-        "General Knowledge": 9,
-        "Entertainment: Books": 10,
-        "Entertainment: Film": 11,
-        "Entertainment: Music": 12,
-        "Entertainment: Musicals &amp; Theatres": 13,
-        "Entertainment: Television": 14,
-        "Entertainment: Video Games": 15,
-        "Entertainment: Board Games": 16,
-        "Science &amp; Nature": 17,
-        "Science: Computers": 18,
-        "Science: Mathematics": 19,
-        "Mythology": 20,
-        "Sports": 21,
-        "Geography": 22,
-        "History": 23,
-        "Politics": 24,
-        "Art": 25,
-        "Celebrities": 26,
-        "Animals": 27,
-        "Vehicles": 28,
-        "Entertainment: Comics": 29,
-        "Science: Gadgets": 30,
-        "Entertainment: Japanese Anime &amp; Manga": 31,
-        "Entertainment: Cartoon &amp; Animations": 32,
-      },
+      categories: [
+        { categoryName: "Any Category", codeForUrlParam: 0 },
+        { categoryName: "General Knowledge", codeForUrlParam: 9 },
+        { categoryName: "Entertainment: Books", codeForUrlParam: 10 },
+        { categoryName: "Entertainment: Film", codeForUrlParam: 11 },
+        { categoryName: "Entertainment: Music", codeForUrlParam: 12 },
+        {
+          categoryName: "Entertainment: Musicals &amp; Theatres",
+          codeForUrlParam: 13,
+        },
+        { categoryName: "Entertainment: Television", codeForUrlParam: 14 },
+        { categoryName: "Entertainment: Video Games", codeForUrlParam: 15 },
+        { categoryName: "Entertainment: Board Games", codeForUrlParam: 16 },
+        { categoryName: "Science &amp; Nature", codeForUrlParam: 17 },
+        { categoryName: "Science: Computers", codeForUrlParam: 18 },
+        { categoryName: "Science: Mathematics", codeForUrlParam: 19 },
+        { categoryName: "Mythology", codeForUrlParam: 20 },
+        { categoryName: "Sports", codeForUrlParam: 21 },
+        { categoryName: "Geography", codeForUrlParam: 22 },
+        { categoryName: "History", codeForUrlParam: 23 },
+        { categoryName: "Politics", codeForUrlParam: 24 },
+        { categoryName: "Art", codeForUrlParam: 25 },
+        { categoryName: "Celebrities", codeForUrlParam: 26 },
+        { categoryName: "Animals", codeForUrlParam: 27 },
+        { categoryName: "Vehicles", codeForUrlParam: 28 },
+        { categoryName: "Entertainment: Comics", codeForUrlParam: 29 },
+        { categoryName: "Science: Gadgets", codeForUrlParam: 30 },
+        {
+          categoryName: "Entertainment: Japanese Anime &amp; Manga",
+          codeForUrlParam: 31,
+        },
+        {
+          categoryName: "Entertainment: Cartoon &amp; Animations",
+          codeForUrlParam: 32,
+        },
+      ],
     };
   },
   methods: {
+    ...mapMutations(["setSelectedCategory", "setNumberOfQuestions"]),
+    ...mapActions(["loadQuestions"]),
     onStartClicked() {
-      this.$emit("start-clicked");
+      this.setSelectedCategory(
+        document.getElementById("selectedCategory").value
+      );
+      this.setNumberOfQuestions(
+        document.getElementById("numberOfQuestions").value
+      );
+      this.loadQuestions().then(() => {
+        this.$emit("start-clicked");
+      });
     },
   },
 };
